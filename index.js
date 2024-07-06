@@ -4,11 +4,13 @@ const User = require('./models/user');
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
+require('dotenv').config();
+
 
 main().catch(err => console.log('Oh no no damm it!!!'));
 
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/authDmeo');
+  await mongoose.connect('process.env.MONGODB_URI');
       console.log("Database connected")
 }
 
@@ -16,7 +18,7 @@ app.set('view engine','ejs');
 app.set('views','views');
 
 app.use(express.urlencoded({extended: true}));
-app.use(session({secret: 'notagoodsecret',resave:true,saveUninitialized:true}));
+app.use(session({secret: 'process.env.SESSION_SECRET',resave:true,saveUninitialized:true}));
 
 const requireLogin = (req, res, next) => {
     if(!req.session.user_id){
