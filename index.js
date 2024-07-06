@@ -10,7 +10,7 @@ require('dotenv').config();
 main().catch(err => console.log('Oh no no damm it!!!'));
 
 async function main() {
-  await mongoose.connect('process.env.MONGODB_URI');
+  await mongoose.connect(process.env.MONGODB_URI);
       console.log("Database connected")
 }
 
@@ -18,7 +18,7 @@ app.set('view engine','ejs');
 app.set('views','views');
 
 app.use(express.urlencoded({extended: true}));
-app.use(session({secret: 'process.env.SESSION_SECRET',resave:true,saveUninitialized:true}));
+app.use(session({secret: process.env.SESSION_SECRET,resave:true,saveUninitialized:true}));
 
 const requireLogin = (req, res, next) => {
     if(!req.session.user_id){
